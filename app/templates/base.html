@@ -1,0 +1,30 @@
+<!doctype html>{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Коллективное сознательное{% endblock %} - JASN</title></title>
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <!--<![endif]-->
+
+    <link rel="stylesheet" href="{% static "app/css/main.css" %}">
+    {% block extrahead %}{% endblock %}
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+
+    {% now "Y" %} &copy; JASN - Коллективное сознательное<br/>
+    все вопросы направлять на почту <a href="mailto:adam@jasn.ru">adam@jasn.ru</a>
+</body>
+</html>

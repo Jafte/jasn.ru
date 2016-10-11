@@ -13,9 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
+from blog.views import BlogDetail, BlogPostDetail
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^(?P<blog_slug>[\w-]+)/$', BlogDetail.as_view(), name='blog-detail'),
+    url(r'^(?P<blog_slug>[\w-]+)/p(?P<pk>[0-9]+)/$', BlogPostDetail.as_view(), name='blog-post-detail'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
