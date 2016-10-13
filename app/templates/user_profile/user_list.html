@@ -3,5 +3,9 @@
 {% block title %}LIST{% endblock %}
 
 {% block content-user_profile %}
-    {{ object_list }}
+    <ul>
+        {% for user in object_list%}
+        <li><a href="{{ user.profile.get_absolute_url }}">{{ user }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}
