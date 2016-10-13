@@ -1,11 +1,37 @@
 {% extends "user_profile/base.html" %}
 
+{% load account %}
+
 {% block title %}LIST{% endblock %}
 
-{% block content-user_profile %}
-    <ul>
+{% block content-container %}
+    <div class="users_list">
         {% for user in object_list%}
-        <li><a href="{{ user.profile.get_absolute_url }}">{{ user }}</a></li>
+        <div class="pure-g users_list_item">
+            <div class="pure-u-1-1 pure-u-md-1-6">
+                <div class="user_list_profile_photo">
+                {% if user.profile.photo %}
+                    <img src="{{ user.profile.photo.list.url }}" alt="{% user_display user %}">
+                {% endif %}
+                </div>
+            </div>
+            <div class="pure-u-1-1 pure-u-md-1-2">
+                <div class="user_list_profile_data">
+                    <a class="profile_link" href="{{ user.profile.get_absolute_url }}">{{ user }}</a>
+                    {% if user.profile.status %}
+                    <div class="status">{{ user.profile.status }}</div>
+                    {% endif %}
+                    <div class="profile_followers">
+                        <span class="followers-counter">{{ user.profile.followers_counter }}</span>&nbsp;<span class="followers-description">подписчиков</span>
+                    </div>
+                </div>
+            </div>
+            <div class="pure-u-1-1 pure-u-md-1-3">
+                <div class="follow">
+                    <a href="#" class="pure-button background-primary">Подписаться</a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}

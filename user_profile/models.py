@@ -22,8 +22,13 @@ class Profile(models.Model):
     birth_date = models.DateField(_('birth date'), blank=True, null=True)
     photo = ThumbnailerImageField(upload_to=upload_to, blank=True)
     background = ThumbnailerImageField(upload_to=upload_to, blank=True)
+    status = models.CharField(_('status'), blank=True, max_length=100)
     about = models.TextField(_('about me'), blank=True)
-    
+    followers_counter = models.PositiveIntegerField(_('followers counter'), default=0)
+    subscriptions_counter = models.PositiveIntegerField(_('subscriptions counter'), default=0)
+    blogs_counter = models.PositiveIntegerField(_('subscriptions counter'), default=0)
+    clubs_counter = models.PositiveIntegerField(_('clubs counter'), default=0)
+
     def last_seen(self):
         return False
 

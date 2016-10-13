@@ -111,30 +111,144 @@ a:hover {
 }
 
 #content {
-    margin: 2em 0;
+    padding: 0 0 2em 0;
+    overflow: hidden;
+}
+
+#content .user_profile_hr {
+    width: 100%;
+    height: 0;
+    border-bottom: 1px solid #dce1ea;
 }
 
 #content .user_profile .profile_background {
     height: 205px;
     background-color: #bfc4cc;
-    margin-top: -2em;
+    background-size: cover;
+    background-position: 50% 50%;
 }
 
-#content .user_profile .profile_content {
+#content .user_profile .users_detail .profile_content {
     position: relative;
     min-height: 200px;
     padding-top: 1em;
 }
 
-#content .user_profile .profile_content .user_profile_photo {
+#content .user_profile .users_detail .user_profile_photo {
     border-radius: 170px;
     border: 5px solid #ffffff;
     display: block;
+    text-align: center;
     width: 170px;
     overflow: hidden;
+    margin: -90px auto 50px auto;
+}
+
+#content .user_profile .users_detail .profile_followers {
+    text-align: center;
+}
+
+#content .user_profile .users_detail .profile_followers .followers-counter {
+    color: #79aef2;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#content .user_profile .users_detail .profile_followers .followers-description{
+    color: #596273;
+    font-size: 0.9em;
+}
+
+#content .user_profile .tab-contents {
+    background-color: #edf0f4;
+    padding: 20px;
+    position: relative;
+}
+
+#content .user_profile .tab-contents:before, #content .user_profile .tab-contents:after {
+    content: "";
     position: absolute;
-    top: -80px;
+    width: 50%;
+    background-color: #edf0f4;
+    top: 0;
+    bottom: 0;
+}
+
+#content .user_profile .tab-contents:before {
+    left: 0;
+    margin-left: 100%;
+}
+
+#content .user_profile .tab-contents:after {
     right: 0;
+    margin-right: 100%;
+}
+
+#content .user_profile .follow {
+    margin: 3em auto;
+    text-align: center;
+}
+
+#content .user_profile .users_list .user_list_profile_photo {
+    border-radius: 100px;
+    display: block;
+    text-align: center;
+    width: 100px;
+    overflow: hidden;
+    margin: 2em auto;
+}
+
+#content .user_profile .users_list .users_list_item {
+    background-color: #edf0f4;
+    position: relative;
+}
+
+#content .user_profile .users_list .users_list_item:before, #content .user_profile .users_list .users_list_item:after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    background-color: #edf0f4;
+    top: 0;
+    bottom: 0;
+}
+
+#content .user_profile .users_list .users_list_item:before {
+    left: 0;
+    margin-left: 100%;
+}
+
+#content .user_profile .users_list .users_list_item:after {
+    right: 0;
+    margin-right: 100%;
+}
+
+#content .user_profile .users_list .users_list_item .user_list_profile_data {
+    padding: 2em 0;
+}
+
+#content .user_profile .users_list .users_list_item .profile_link, #content .user_profile .users_list .users_list_item .profile_link:visited {
+    color: #596273;
+    font-size: 2em;
+}
+
+#content .user_profile .users_list .users_list_item .status {
+    margin: 0.5em 0;
+}
+
+#content .user_profile .users_list .users_list_item .profile_followers {
+    margin-top: 1em;
+}
+
+#content .user_profile .users_list .users_list_item .profile_followers .followers-counter {
+    font-size: 1em;
+}
+
+#content .user_profile .users_list .users_list_item .profile_followers .followers-description {
+    font-size: 0.8em;
+}
+
+#content .user_profile .users_list .users_list_item .follow {
+    margin: 4em auto 0;
 }
 
 #footer {
@@ -175,7 +289,7 @@ a:hover {
 
 /* general classes */
 
-.background-primary {
+.background-primary, .background-primary:visited {
     background: #79aef2;
     color: #ffffff;
 }
@@ -184,9 +298,30 @@ a:hover {
     color: #79aef2;
 }
 
+.pure-button {
+    padding: 1em 4em;
+}
+
 .smaller {
     font-size: 0.9em;
 }
+
+.tab, .tab:visited {
+    color: #FFFFFF;
+    background-color: #bfc4cc;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 10px 20px;
+}
+.tab:hover {
+    background-color: #cacfd7;
+}
+
+.tab.active {
+    color: #596273;
+    background-color: #edf0f4;
+}
+
 
 /* ≥ 568px */
 @media screen and (min-width: 35.5em) {

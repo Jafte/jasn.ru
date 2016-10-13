@@ -160,6 +160,7 @@ STATICFILES_DIRS = [
 THUMBNAIL_ALIASES = {
     '': {
         'profile': {'size': (170, 170), 'crop': True},
+        'list': {'size': (100, 100), 'crop': True},
     },
 }
 
