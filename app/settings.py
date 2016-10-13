@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'mailer',
     'timezone_field',
+    'easy_thumbnails',
 
     'blog',
     'last_seen',
@@ -154,6 +155,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app/static'),
 ]
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'profile': {'size': (170, 170), 'crop': True},
+    },
+}
 
 try:
     from app.local_settings import *

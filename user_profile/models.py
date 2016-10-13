@@ -1,8 +1,10 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from timezone_field import TimeZoneField
 from django.urls import reverse
+
+from timezone_field import TimeZoneField
+from easy_thumbnails.fields import ThumbnailerImageField
 
 from django.db.models.signals import post_save
 
@@ -17,6 +19,7 @@ class Profile(models.Model):
     timezone = TimeZoneField(default='UTC')
     gender = models.PositiveSmallIntegerField(_('gender'), choices=GENDER_CHOICES, blank=True, null=True)
     birth_date = models.DateField(_('birth date'), blank=True, null=True)
+    photo = ThumbnailerImageField(upload_to='photos', blank=True)
     about = models.TextField(_('about me'), blank=True)
     
     def last_seen(self):
