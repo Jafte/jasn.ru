@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from timezone_field import TimeZoneField
 from easy_thumbnails.fields import ThumbnailerImageField
+from uuid_upload_path import upload_to
 
 from django.db.models.signals import post_save
 
@@ -19,8 +20,8 @@ class Profile(models.Model):
     timezone = TimeZoneField(default='UTC')
     gender = models.PositiveSmallIntegerField(_('gender'), choices=GENDER_CHOICES, blank=True, null=True)
     birth_date = models.DateField(_('birth date'), blank=True, null=True)
-    photo = ThumbnailerImageField(upload_to='photos', blank=True)
-    background = ThumbnailerImageField(upload_to='backgrounds', blank=True)
+    photo = ThumbnailerImageField(upload_to=upload_to, blank=True)
+    background = ThumbnailerImageField(upload_to=upload_to, blank=True)
     about = models.TextField(_('about me'), blank=True)
     
     def last_seen(self):

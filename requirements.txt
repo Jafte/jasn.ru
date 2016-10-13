@@ -7,3 +7,4 @@ django-last-seen>=0.3
 django-timezone-field>=2.0
 pytz
 easy-thumbnails
+django-uuid-upload-path

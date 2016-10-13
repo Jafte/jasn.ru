@@ -91,6 +91,25 @@ a:hover {
     background: #6db8f1;
 }
 
+#personal_menu a, #personal_menu a:visited, #personal_menu a:hover {
+    padding: 0;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+}
+#personal_menu a:hover {
+    background: #7cbff2;
+}
+
+#personal_menu a span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
 #content {
     margin: 2em 0;
 }
