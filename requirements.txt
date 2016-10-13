@@ -6,3 +6,4 @@ django-allauth>=0.27.0
 django-last-seen>=0.3
 django-timezone-field>=2.0
 pytz
+easy-thumbnails

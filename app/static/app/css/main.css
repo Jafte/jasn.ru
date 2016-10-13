@@ -133,9 +133,17 @@ a:hover {
 
 /* general classes */
 
-.button-primary {
+.background-primary {
     background: #79aef2;
     color: #ffffff;
+}
+
+.color-primary {
+    color: #79aef2;
+}
+
+.smaller {
+    font-size: 0.9em;
 }
 
 /* ≥ 568px */

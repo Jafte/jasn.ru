@@ -1,7 +1,15 @@
 {% extends "user_profile/base.html" %}
 
-{% block title %}USER{% endblock %}
+{% load account %}
+
+{% block title %}Профиль пользователя: {% user_display object %}{% endblock %}
 
 {% block content-user_profile %}
-    {{ object }}
+    <h2 class="color-primary">{% user_display object %}</h2>
+    {% if object.profile.birth_date %}
+    <p class="smaller">День рождения - {{ object.profile.birth_date|date:"j E Y" }}</p>
+    {% endif %}
+    {% if object.profile.about %}
+    <p>{{ object.profile.about }}</p>
+    {% endif %}
 {% endblock %}

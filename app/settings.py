@@ -144,6 +144,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+ACCOUNT_USER_DISPLAY = "user_profile.helper.get_full_name_or_username"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
