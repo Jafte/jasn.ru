@@ -1,0 +1,72 @@
+{% extends "account/base.html" %}
+
+{% block title %}Акккккккаунт{% endblock %}
+
+{% block content-account %}
+    <h1>Список e-mail адресов</h1>
+    {% if user.emailaddress_set.all %}
+    <p>Следующие почтовыя ящики привязаны к твоему аккаунту:</p>
+
+    <form action="{% url 'account_email' %}" class="pure-form pure-form-stacked" method="post">
+        {% csrf_token %}
+        <fieldset class="blockLabels">
+        
+            {% for emailaddress in user.emailaddress_set.all %}
+            <div class="ctrlHolder">
+                <label for="email_radio_{{forloop.counter}}" class="{% if emailaddress.primary %}primary_email{%endif%}">
+                    <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{%endif %} value="{{emailaddress.email}}"/>
+
+                    {{ emailaddress.email }}
+                    
+                    {% if emailaddress.verified %}
+                    <span class="verified">Подтвержден</span>
+                    {% else %}
+                    <span class="unverified">Не подтвержден</span>
+                    {% endif %}
+                    
+                    {% if emailaddress.primary %}<span class="primary">Основной</span>{% endif %}
+                </label>
+            </div>
+            {% endfor %}
+
+            <div class="buttonHolder">
+                  <button class="pure-button button-primary" type="submit" name="action_primary" >Сделать основным</button><br/><br/>
+                  <button class="pure-button button-primary" type="submit" name="action_send" >Выслать код подтверждения повторно</button><br/><br/>
+                  <button class="pure-button button-primary" type="submit" name="action_remove" >Удалить</button>
+            </div>
+
+        </fieldset>
+    </form>
+
+{% else %}
+
+<p><strong>Ахтунг!</strong> У мы все еще не знаем ни одного вашего почтового ящика. Это значит, что вы не сможете восстановить пароль, если его забудете. К тому же мы не сможет присылать вам тонны спама в виде уведомлений, а это уже совсем грустно. Про спам, конечно, мы пошутили, но почту лучше привязать... мало ли чего.</p>
+
+{% endif %}
+
+    <h2>Добавить e-mail</h2>
+
+    <form method="post" action="{% url 'account_email' %}" class="pure-form pure-form-stacked">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="pure-button button-primary" name="action_add" type="submit">Добавить</button>
+    </form>
+
+{% endblock %}
+
+
+{% block extra_body %}
+<script type="text/javascript">
+(function() {
+    var message = "Точно можно удалять выбранный ящик?";
+    var actions = document.getElementsByName('action_remove');
+    if (actions.length) {
+        actions[0].addEventListener("click", function(e) {
+            if (! confirm(message)) {
+                e.preventDefault();
+            }
+        });
+    }
+})();
+</script>
+{% endblock %}

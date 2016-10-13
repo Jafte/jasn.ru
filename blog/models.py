@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 import datetime
 
@@ -23,7 +24,7 @@ class Blog(models.Model):
         return '%s by %s' % (self.title, self.owner)
 
     def get_absolute_url(self):
-        return ('blog-detail', None, {'blog_slug': self.slug,})
+        return reverse('blog-detail', kwargs={'blog_slug': self.slug,})
 
 @python_2_unicode_compatible
 class Post(models.Model):
@@ -50,4 +51,4 @@ class Post(models.Model):
         return '%s in blog %s' % (self.title, self.blog)
 
     def get_absolute_url(self):
-        return ('blog-post-detail', None, {'blog_slug': self.blog.slug, 'post_pk': self.pk})
+        return reverse('blog-post-detail', kwargs={'blog_slug': self.blog.slug, 'post_pk': self.pk})

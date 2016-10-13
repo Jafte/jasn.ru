@@ -1,4 +1,4 @@
-<!doctype html>{% load static %}
+<!doctype html>{% load static %}{% spaceless %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -13,18 +13,76 @@
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
     <!--<![endif]-->
 
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic" rel="stylesheet">
     <link rel="stylesheet" href="{% static "app/css/main.css" %}">
     {% block extrahead %}{% endblock %}
 </head>
 <body>
+
+    {% if user.is_authenticated %}
+    <div id="personal_menu">
+        <div class="container pure-g">
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="header">
+        <div class="container menu-block">
+            <div class="pure-g">
+                <div class="pure-u-1 pure-u-md-5-24 menu-item menu-logo">
+                    <a href="/">
+                        <img class="header-logo" src="{% static "app/img/logo.svg" %}" width="110px">
+                    </a>
+                </div>
+                <div class="pure-u-1 pure-u-md-3-24 menu-item">
+                    <a href="/"><span>Клубы</span></a>
+                </div>
+                <div class="pure-u-1 pure-u-md-3-24 menu-item">
+                    <a href="{% url 'blog-list' %}"{% block menu-item-blog %}{% endblock %}><span>Блоги</span></a>
+                </div>
+                <div class="pure-u-1 pure-u-md-3-24 menu-item">
+                    <a href="/"><span>Люди</span></a>
+                </div>
+                <div class="pure-u-1 pure-u-md-7-24 menu-item">
+                    
+                </div>
+                <div class="pure-u-1 pure-u-md-3-24 menu-item">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'account_logout' %}"><span>Выход</span></a>
+                    {% else %}
+                    <a href="{% url 'account_login' %}"><span>Вход</span></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% if messages %}
         {% for message in messages %}
             <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
         {% endfor %}
     {% endif %}
-    {% block content %}{% endblock %}
 
-    {% now "Y" %} &copy; JASN - Коллективное сознательное<br/>
-    все вопросы направлять на почту <a href="mailto:adam@jasn.ru">adam@jasn.ru</a>
+    <div id="content">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <div class="pure-g">
+                <div class="pure-u-1 pure-u-md-3-5 contacts-block">
+                    <span class="ages">18+</span>
+                    <span class="contacts-text">по всем вопросам можно стучаться на <a href="mailto:adam@jasn.ru">adam@jasn.ru</a></span>
+                </div>
+                <div class="pure-u-1 pure-u-md-2-5 copyrights-block">
+                    <span class="copyrights-text">&copy; 2012 - {% now "Y" %} Коллективное сознательное</span>
+                    <img class="footer-logo" src="{% static "app/img/logo.svg" %}" width="40px">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block extra_body %}{% endblock %}
 </body>
-</html>
+</html>{% endspaceless %}

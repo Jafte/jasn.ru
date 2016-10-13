@@ -1,0 +1,29 @@
+{% extends "account/base.html" %}
+
+{% block title %}Подтверждение E-mail адреса{% endblock %}
+
+{% load account %}
+
+{% block content-account %}
+<h1>Подтверждение E-mail адреса</h1>
+
+{% if confirmation %}
+
+{% user_display confirmation.email_address.user as user_display %}
+
+<p>Надо подтвердить, что ящик <b>{{ confirmation.email_address.email }}</b> принадлежит пользователю {{ user_display }}.</p>
+
+<form method="post" action="{% url 'account_confirm_email' confirmation.key %}" class="pure-form pure-form-stacked">
+{% csrf_token %}
+    <button type="submit" class="pure-button button-primary" >Выслать инструкции</button>
+</form>
+
+{% else %}
+
+{% url 'account_email' as email_url %}
+
+<p>Ссылка, по которой вы попалю сюда, более не действительна. Пожалуйста, <a href="{{ email_url }}">запросите подтверждение повторно</a>.</p>
+
+{% endif %}
+
+{% endblock %}

@@ -16,12 +16,17 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
-from blog.views import BlogDetail, BlogPostDetail
+
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    url(r'^', include('allauth.urls')),
+    url(r'^blog/', include('blog.urls')),
+    url(r'^user/', include('user_profile.urls')),
+
+    url(r'^$', TemplateView.as_view(template_name="app/index.html"), name='index'),
+
     url(r'^admin/', admin.site.urls),
-    url(r'^(?P<blog_slug>[\w-]+)/$', BlogDetail.as_view(), name='blog-detail'),
-    url(r'^(?P<blog_slug>[\w-]+)/p(?P<pk>[0-9]+)/$', BlogPostDetail.as_view(), name='blog-post-detail'),
 ]
 
 if settings.DEBUG:

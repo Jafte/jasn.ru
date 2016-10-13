@@ -11,3 +11,9 @@ class BlogPostDetail(DetailView):
     pk_url_kwarg = 'post_pk'
     queryset = Post.objects.filter(active=True, status=2)
     template_name = 'blog/blog_post_detail.html'
+
+class BlogList(ListView):
+    queryset = Blog.objects.filter(active=True)
+    template_name = 'blog/blog_list.html'
+
+        

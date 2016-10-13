@@ -39,10 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'allauth',
+    'allauth.account',
     'debug_toolbar',
     'mailer',
+    'timezone_field',
 
     'blog',
+    'last_seen',
+    'user_profile',
 ]
 
 SITE_ID = 1
@@ -59,6 +64,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'last_seen.middleware.LastSeenMiddleware',
+    'user_profile.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -113,11 +120,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+ACCOUNT_SESSION_REMEMBER = True
+
+ACCOUNT_ADAPTER = 'user_profile.users_adapter.JasnAdapter'
+
+LAST_SEEN_INTERVAL = 60 * 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 

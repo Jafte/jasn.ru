@@ -1,0 +1,6 @@
+{% load account %}{% user_display user as user_display %}{% autoescape off %}Приветствуем Вас от имени {{ current_site.name }}!
+
+Вы получили это письмо потому, что пользовтель {{ user_display }} на {{ current_site.domain }} указал этот почтовый ящик в своем аккаунте.
+
+Если все правильно, то вот вам секретная ссылка для подтверждения {{ activate_url }} 
+{% endautoescape %}

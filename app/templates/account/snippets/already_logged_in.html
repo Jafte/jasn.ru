@@ -1,0 +1,4 @@
+{% load account %}
+
+{% user_display user as user_display %}
+<p><strong>Между прочим:</strong> вы уже авторизованы как {{ user_display }}.</p>
