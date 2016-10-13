@@ -51,7 +51,9 @@ docs/_build/
 
 # Local shits
 /venv/
+/env/
 /.idea/
 /app/local_settings.py
 /db.sqlite3
+/fabfile.py
 /tmp/

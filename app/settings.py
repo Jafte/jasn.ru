@@ -155,8 +155,9 @@ STATICFILES_DIRS = [
 ]
 
 try:
-    from .local_settings import *
+    from app.local_settings import *
 except Exception as e:
-    import sys, warnings
+    import sys
+    import warnings
     warnings.warn("Unable import local settings [%s]: %s" % (type(e),  e))
     sys.exit(1)
