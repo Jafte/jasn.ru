@@ -151,6 +151,7 @@ ACCOUNT_USER_DISPLAY = "user_profile.helper.get_full_name_or_username"
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app/static'),

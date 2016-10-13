@@ -3,9 +3,10 @@
 {% block menu-item-user %} class="active" {% endblock %}
 
 {% block content %}
-<div class="pure-g">
-    <div class="pure-u-1-1">
-        {% block content-user_profile %}{% endblock %}
+    <div class="user_profile">
+        {% block content-before-container %}{% endblock %}
+        <div class="container">
+            {% block content-container %}{% endblock %}
+        </div>
     </div>
-</div>
 {% endblock %}

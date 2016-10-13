@@ -4,12 +4,23 @@
 
 {% block title %}Профиль пользователя: {% user_display object %}{% endblock %}
 
-{% block content-user_profile %}
-    <h2 class="color-primary">{% user_display object %}</h2>
-    {% if object.profile.birth_date %}
-    <p class="smaller">День рождения - {{ object.profile.birth_date|date:"j E Y" }}</p>
-    {% endif %}
-    {% if object.profile.about %}
-    <p>{{ object.profile.about }}</p>
-    {% endif %}
+{% block content-before-container %}<div class="profile_background"></div>{% endblock %}
+
+{% block content-container %}
+    <div class="pure-g">
+        <div class="pure-u-1-1 profile_content">
+            <div class="user_profile_photo">
+            {% if object.profile.photo %}
+                <img src="{{ object.profile.photo.profile.url }}" alt="{% user_display object %}">
+            {% endif %}
+            </div>
+            <h2 class="color-primary">{% user_display object %}</h2>
+            {% if object.profile.birth_date %}
+            <p class="smaller">День рождения - {{ object.profile.birth_date|date:"j E Y" }}</p>
+            {% endif %}
+            {% if object.profile.about %}
+            <p>{{ object.profile.about }}</p>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

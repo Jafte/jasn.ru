@@ -20,6 +20,7 @@ class Profile(models.Model):
     gender = models.PositiveSmallIntegerField(_('gender'), choices=GENDER_CHOICES, blank=True, null=True)
     birth_date = models.DateField(_('birth date'), blank=True, null=True)
     photo = ThumbnailerImageField(upload_to='photos', blank=True)
+    background = ThumbnailerImageField(upload_to='backgrounds', blank=True)
     about = models.TextField(_('about me'), blank=True)
     
     def last_seen(self):

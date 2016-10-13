@@ -95,6 +95,29 @@ a:hover {
     margin: 2em 0;
 }
 
+#content .user_profile .profile_background {
+    height: 205px;
+    background-color: #bfc4cc;
+    margin-top: -2em;
+}
+
+#content .user_profile .profile_content {
+    position: relative;
+    min-height: 200px;
+    padding-top: 1em;
+}
+
+#content .user_profile .profile_content .user_profile_photo {
+    border-radius: 170px;
+    border: 5px solid #ffffff;
+    display: block;
+    width: 170px;
+    overflow: hidden;
+    position: absolute;
+    top: -80px;
+    right: 0;
+}
+
 #footer {
     border-top: 1px solid #dce1ea;
     background: #f6f7f9;
