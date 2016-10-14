@@ -22,6 +22,8 @@ a:hover {
 #header {
     background: #f6f7f9;
     box-shadow: 0px 0px 3px #999;
+    position: relative;
+    z-index: 20;
 }
 
 #header .menu-block {
@@ -110,9 +112,23 @@ a:hover {
     line-height: normal;
 }
 
+#messages {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+#messages .message {
+    padding: 1em;
+    margin: 1em;
+}
+
 #content {
     padding: 0 0 2em 0;
     overflow: hidden;
+    position: relative;
+    z-index: 10;
 }
 
 #content .user_profile_hr {
@@ -142,6 +158,7 @@ a:hover {
     width: 170px;
     overflow: hidden;
     margin: -90px auto 50px auto;
+    background-color: #ffffff;
 }
 
 #content .user_profile .users_detail .profile_followers {
@@ -196,20 +213,34 @@ a:hover {
     width: 100px;
     overflow: hidden;
     margin: 2em auto;
+    background-color: #ffffff;
 }
 
 #content .user_profile .users_list .users_list_item {
     background-color: #edf0f4;
     position: relative;
+    padding: 0 1em;
+    text-align: center;
 }
 
 #content .user_profile .users_list .users_list_item:before, #content .user_profile .users_list .users_list_item:after {
     content: "";
     position: absolute;
     width: 50%;
-    background-color: #edf0f4;
     top: 0;
     bottom: 0;
+}
+
+#content .user_profile .users_list .users_list_item.users_list_item_dark,
+#content .user_profile .users_list .users_list_item.users_list_item_dark:before,
+#content .user_profile .users_list .users_list_item.users_list_item_dark:after{
+    background-color: #edf0f4;
+}
+
+#content .user_profile .users_list .users_list_item.users_list_light,
+#content .user_profile .users_list .users_list_item.users_list_light:before,
+#content .user_profile .users_list .users_list_item.users_list_light:after{
+    background-color: #ffffff;
 }
 
 #content .user_profile .users_list .users_list_item:before {
@@ -221,6 +252,7 @@ a:hover {
     right: 0;
     margin-right: 100%;
 }
+
 
 #content .user_profile .users_list .users_list_item .user_list_profile_data {
     padding: 2em 0;
@@ -248,7 +280,7 @@ a:hover {
 }
 
 #content .user_profile .users_list .users_list_item .follow {
-    margin: 4em auto 0;
+    margin: 2em auto;
 }
 
 #footer {
@@ -275,7 +307,7 @@ a:hover {
 
 #footer .copyrights-block,
 #footer .contacts-block {
-    padding: 0 0 15px 0;
+    padding: 0 10px 15px 10px;
     text-align: center;
     font-size: 0.75em;
     line-height: 1.5em;
@@ -331,7 +363,11 @@ a:hover {
 @media screen and (min-width: 48em) {
     .container {
         padding: 0 2em;
-    }     
+    }
+
+    #footer .copyrights-block, #footer .contacts-block {
+        padding: 0 0 15px 0;
+    }
 
     #footer .copyrights-block {
         text-align: right;
@@ -351,6 +387,15 @@ a:hover {
 
     #header .menu-item.menu-logo a {
         border: none;
+    }
+
+    #content .user_profile .users_list .users_list_item {
+        padding: 0;
+        text-align: left;
+    }
+
+    #content .user_profile .users_list .users_list_item .follow {
+        margin: 3.5em auto 1em;
     }
 
 }

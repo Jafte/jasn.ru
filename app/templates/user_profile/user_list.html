@@ -1,23 +1,25 @@
 {% extends "user_profile/base.html" %}
 
-{% load account %}
+{% load account static %}
 
 {% block title %}LIST{% endblock %}
 
 {% block content-container %}
     <div class="users_list">
         {% for user in object_list%}
-        <div class="pure-g users_list_item">
+        <div class="pure-g users_list_item {% cycle 'users_list_item_dark' 'users_list_light' %}">
             <div class="pure-u-1-1 pure-u-md-1-6">
                 <div class="user_list_profile_photo">
                 {% if user.profile.photo %}
                     <img src="{{ user.profile.photo.list.url }}" alt="{% user_display user %}">
+                {% else %}
+                    <img src="{% static "app/img/user.svg" %}" alt="{% user_display user %}" width="100">
                 {% endif %}
                 </div>
             </div>
             <div class="pure-u-1-1 pure-u-md-1-2">
                 <div class="user_list_profile_data">
-                    <a class="profile_link" href="{{ user.profile.get_absolute_url }}">{{ user }}</a>
+                    <a class="profile_link" href="{{ user.profile.get_absolute_url }}">{% user_display user %}</a>
                     {% if user.profile.status %}
                     <div class="status">{{ user.profile.status }}</div>
                     {% endif %}
