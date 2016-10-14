@@ -1,6 +1,5 @@
 from django import forms
 from timezone_field.forms import TimeZoneFormField
-from easy_thumbnails.widgets import ImageClearableFileInput
 
 
 class UserForm(forms.Form):
@@ -13,8 +12,8 @@ class UserForm(forms.Form):
     ))
     birth_date = forms.DateField()
     about = forms.CharField(widget=forms.Textarea)
-    photo = forms.FileField(widget=ImageClearableFileInput)
-    background = forms.FileField(widget=ImageClearableFileInput)
+    photo = forms.FileField()
+    background = forms.FileField()
 
 
 class StatusForm(forms.Form):

@@ -73,5 +73,7 @@ class UserStatusEdit(LoginRequiredMixin, FormView):
         return initial
 
     def form_valid(self, form):
-
+        user = self.request.user
+        user.profile.status = form.cleaned_data['status']
+        user.profile.save()
         return super(UserStatusEdit, self).form_valid(form)
