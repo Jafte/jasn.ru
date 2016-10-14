@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'mailer',
     'timezone_field',
     'easy_thumbnails',
+    'django_cleanup',
 
     'blog',
     'last_seen',

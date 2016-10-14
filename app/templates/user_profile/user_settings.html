@@ -1,0 +1,26 @@
+{% extends "user_profile/base.html" %}
+
+{% load account static %}
+
+{% block title %}Настройки пользователя: {% user_display user %}{% endblock %}
+
+{% block content-container %}
+    <div class="users_detail">
+        <h1>Настройки пользователя</h1>
+        <p>Короче, мы можем тебе предложить следующее:</p>
+        <ul>
+            <li>
+                <a href="{% url 'user-profile-status-edit' %}">Изменение статус (показывается рядом в ником)</a>
+            </li>
+            <li>
+                <a href="{% url 'user-profile-edit' %}">Изменение данных профился (имя, авататрка, день рождения и так дадее)</a>
+            </li>
+            <li>
+                <a href="{% url 'account_email' %}">Натсройка привязанных адресов электронной почты</a>
+            </li>
+            <li>
+                <a href="{% url 'account_change_password' %}">Изменение пароля</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
