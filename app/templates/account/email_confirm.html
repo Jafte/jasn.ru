@@ -15,7 +15,7 @@
 
 <form method="post" action="{% url 'account_confirm_email' confirmation.key %}" class="pure-form pure-form-stacked">
 {% csrf_token %}
-    <button type="submit" class="pure-button button-primary" >Выслать инструкции</button>
+    <button type="submit" class="pure-button button-primary" >Подтверждаю!</button>
 </form>
 
 {% else %}
