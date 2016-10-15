@@ -32,6 +32,7 @@ class UserEdit(LoginRequiredMixin, FormView):
         initial = super(UserEdit, self).get_initial()
         initial['first_name'] = user.first_name
         initial['last_name'] = user.last_name
+        initial['status'] = user.profile.status
         initial['timezone'] = user.profile.timezone
         initial['gender'] = user.profile.gender
         initial['birth_date'] = user.profile.birth_date
@@ -48,6 +49,7 @@ class UserEdit(LoginRequiredMixin, FormView):
         user.last_name = form.cleaned_data['last_name']
         user.save()
 
+        user.profile.status = form.cleaned_data['status']
         user.profile.timezone = form.cleaned_data['timezone']
         user.profile.gender = form.cleaned_data['gender']
         user.profile.birth_date = form.cleaned_data['birth_date']
@@ -60,21 +62,3 @@ class UserEdit(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return reverse('user-profile-detail', kwargs={'username': self.request.user.username})
-
-
-class UserStatusEdit(LoginRequiredMixin, FormView):
-    template_name = 'user_profile/user_status_edit.html'
-    form_class = StatusForm
-
-    def get_initial(self):
-        user = self.request.user
-        initial = super(UserStatusEdit, self).get_initial()
-        initial['status'] = user.profile.status
-
-        return initial
-
-    def form_valid(self, form):
-        user = self.request.user
-        user.profile.status = form.cleaned_data['status']
-        user.profile.save()
-        return super(UserStatusEdit, self).form_valid(form)

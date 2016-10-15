@@ -5,6 +5,7 @@ from timezone_field.forms import TimeZoneFormField
 class UserForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
+    status = forms.CharField()
     timezone = TimeZoneFormField()
     gender = forms.ChoiceField(choices=(
         (1, "Мужчина"),
