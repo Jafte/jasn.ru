@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from user_profile.views import UserDetail, UserList, UserEdit, UserStatusEdit, UserSettingsPage
+from user_profile.views import UserDetail, UserList, UserEdit, UserSettingsPage
 
 urlpatterns = [
     url(r'^edit/$', UserEdit.as_view(), name="user-profile-edit"),
