@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'timezone_field',
     'easy_thumbnails',
     'django_cleanup',
+    'actstream',
 
     'blog',
     'last_seen',

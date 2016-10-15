@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from user_profile.forms import UserForm, StatusForm
 from django.urls import reverse
+from actstream import action
 
 
 class UserDetail(DetailView):

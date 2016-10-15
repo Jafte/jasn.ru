@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^', include('allauth.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'^user/', include('user_profile.urls')),
+    url(r'^activity/', include('actstream.urls')),
 
     url(r'^$', TemplateView.as_view(template_name="app/index.html"), name='index'),
 

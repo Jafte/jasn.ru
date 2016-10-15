@@ -9,3 +9,4 @@ pytz
 easy-thumbnails
 django-cleanup>=0.4.2
 django-uuid-upload-path
+django-activity-stream>=0.6.3
