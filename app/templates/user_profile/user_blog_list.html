@@ -2,14 +2,23 @@
 
 {% load account static %}
 
-{% block title %}Список блогов пользовтеля: {% user_display user %}{% endblock %}
+{% block title %}Мои блоги{% endblock %}
 
 {% block content-container %}
     <div class="users_detail">
-        <h1>Изменения профиля</h1>
+        <h1>Мои блоги</h1>
         <div class="pure-g">
             <div class="pure-u-3-4">
-                {{ blog_list }}
+                {% for blog in blog_list %}
+                    <p>
+                        <a href="{{ blog.get_absolute_utl }}">{{ blog.title }}</a>
+                    </p>
+                {% empty %}
+                    <p>Ни одного блога не найдено</p>
+                {% endfor %}
+            {% if perms.blog.can_add_blog %}
+                <a class="pure-button" href="{% url 'user-blog-create' %}">добавить блог</a>
+            {% endif %}
             </div>
         </div>
     </div>

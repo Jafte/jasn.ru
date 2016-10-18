@@ -1,6 +1,5 @@
 from django.views.generic import ListView, DetailView
 from blog.models import Blog, Post
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class BlogDetail(DetailView):

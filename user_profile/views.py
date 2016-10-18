@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, FormView, TemplateView
+from django.views.generic import ListView, DetailView, FormView, TemplateView, CreateView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from user_profile.forms import UserForm
@@ -71,5 +71,20 @@ class UserBlogList(LoginRequiredMixin, ListView):
     context_object_name = "blog_list"
 
     def get_queryset(self):
+        user = self.request.user
         queryset = super(UserBlogList, self).get_queryset()
-        return queryset.filter(user=self.request.user)
+        return queryset.filter(owner=user)
+
+
+class BlogCreate(LoginRequiredMixin, CreateView):
+    template_name = 'user_profile/user_blog_create.html'
+    model = Blog
+    fields = ['title', 'slug', 'description']
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.owner = user
+        return super(BlogCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('blog-detail', kwargs={'blog_slug': self.object.slug})
