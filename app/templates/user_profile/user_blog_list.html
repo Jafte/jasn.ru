@@ -1,0 +1,16 @@
+{% extends "user_profile/base.html" %}
+
+{% load account static %}
+
+{% block title %}Список блогов пользовтеля: {% user_display user %}{% endblock %}
+
+{% block content-container %}
+    <div class="users_detail">
+        <h1>Изменения профиля</h1>
+        <div class="pure-g">
+            <div class="pure-u-3-4">
+                {{ blog_list }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

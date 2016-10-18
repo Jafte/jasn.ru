@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from user_profile.forms import UserForm
 from django.urls import reverse
+from blog.models import Blog
 from actstream import action
 
 
@@ -62,3 +63,13 @@ class UserEdit(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return reverse('user-profile-detail', kwargs={'username': self.request.user.username})
+
+
+class UserBlogList(LoginRequiredMixin, ListView):
+    queryset = Blog.objects.filter(active=True)
+    template_name = 'user_profile/user_blog_list.html'
+    context_object_name = "blog_list"
+
+    def get_queryset(self):
+        queryset = super(UserBlogList, self).get_queryset()
+        return queryset.filter(user=self.request.user)

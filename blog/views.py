@@ -19,12 +19,3 @@ class BlogPostDetail(DetailView):
 class BlogList(ListView):
     queryset = Blog.objects.filter(active=True)
     template_name = 'blog/blog_list.html'
-
-
-class UserBlogList(LoginRequiredMixin, ListView):
-    queryset = Blog.objects.filter(active=True)
-    template_name = 'blog/user_blog_list.html'
-
-    def get_queryset(self):
-        queryset = super(UserBlogList, self).get_queryset()
-        return queryset.filter(user=self.request.user)
