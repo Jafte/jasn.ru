@@ -24,7 +24,7 @@ class Blog(models.Model):
         return '%s by %s' % (self.title, self.owner)
 
     def get_absolute_url(self):
-        return reverse('blog-detail', kwargs={'blog_slug': self.slug,})
+        return reverse('blog-detail', kwargs={'blog_slug': self.slug})
 
 @python_2_unicode_compatible
 class Post(models.Model):

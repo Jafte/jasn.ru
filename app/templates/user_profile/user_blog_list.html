@@ -16,9 +16,9 @@
                 {% empty %}
                     <p>Ни одного блога не найдено</p>
                 {% endfor %}
-            {% if perms.blog.can_add_blog %}
-                <a class="pure-button" href="{% url 'user-blog-create' %}">добавить блог</a>
-            {% endif %}
+                {% if perms.blog.add_blog %}
+                    <a class="pure-button" href="{% url 'user-blog-create' %}">добавить блог</a>
+                {% endif %}
             </div>
         </div>
     </div>

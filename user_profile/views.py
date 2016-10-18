@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, FormView, TemplateView, CreateView
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from user_profile.forms import UserForm
 from django.urls import reverse
 from blog.models import Blog
@@ -76,7 +76,8 @@ class UserBlogList(LoginRequiredMixin, ListView):
         return queryset.filter(owner=user)
 
 
-class BlogCreate(LoginRequiredMixin, CreateView):
+class BlogCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'blog.add_blog'
     template_name = 'user_profile/user_blog_create.html'
     model = Blog
     fields = ['title', 'slug', 'description']
