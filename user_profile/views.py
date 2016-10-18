@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, FormView, TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from user_profile.forms import UserForm, StatusForm
+from user_profile.forms import UserForm
 from django.urls import reverse
 from actstream import action
 

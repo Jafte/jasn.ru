@@ -1,5 +1,7 @@
 from django.views.generic import ListView, DetailView
 from blog.models import Blog, Post
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class BlogDetail(DetailView):
     slug_field = 'slug'
@@ -7,13 +9,22 @@ class BlogDetail(DetailView):
     queryset = Blog.objects.filter(active=True)
     template_name = 'blog/blog_detail.html'
 
+
 class BlogPostDetail(DetailView):
     pk_url_kwarg = 'post_pk'
     queryset = Post.objects.filter(active=True, status=2)
     template_name = 'blog/blog_post_detail.html'
 
+
 class BlogList(ListView):
     queryset = Blog.objects.filter(active=True)
     template_name = 'blog/blog_list.html'
 
-        
+
+class UserBlogList(LoginRequiredMixin, ListView):
+    queryset = Blog.objects.filter(active=True)
+    template_name = 'blog/user_blog_list.html'
+
+    def get_queryset(self):
+        queryset = super(UserBlogList, self).get_queryset()
+        return queryset.filter(user=self.request.user)
