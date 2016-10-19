@@ -23,6 +23,7 @@ class BlogList(ListView):
 
 
 class BlogCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    raise_exception = True
     permission_required = 'blog.add_blog'
     template_name = 'blog/blog_form.html'
     model = Blog
@@ -38,7 +39,8 @@ class BlogCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 class BlogUpdate(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, UpdateView):
-    permission_required = 'blog.edit_blog'
+    raise_exception = True
+    permission_required = 'blog.change_blog'
     template_name = 'blog/blog_form.html'
     model = Blog
     slug_field = 'slug'
