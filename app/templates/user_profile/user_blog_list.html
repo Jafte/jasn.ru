@@ -11,13 +11,14 @@
             <div class="pure-u-3-4">
                 {% for blog in blog_list %}
                     <p>
-                        <a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a>
+                        <a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a> -
+                        <a href="{% url 'blog-update' blog.slug %}">редактировать</a>
                     </p>
                 {% empty %}
                     <p>Ни одного блога не найдено</p>
                 {% endfor %}
                 {% if perms.blog.add_blog %}
-                    <a class="pure-button" href="{% url 'user-blog-create' %}">добавить блог</a>
+                    <a class="pure-button" href="{% url 'blog-create' %}">добавить блог</a>
                 {% endif %}
             </div>
         </div>

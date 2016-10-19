@@ -3,13 +3,14 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
+from django.core.validators import MinLengthValidator
 
 import datetime
 
 @python_2_unicode_compatible
 class Blog(models.Model):
     title = models.CharField(_('title'), max_length=100)
-    slug = models.SlugField(_('slug'), unique=True)
+    slug = models.SlugField(_('slug'), unique=True, max_length=100, validators=[MinLengthValidator(4)])
     active = models.BooleanField(_('active'), default=True)
     description = models.TextField(_('description'), blank=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
