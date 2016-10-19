@@ -154,6 +154,7 @@ ACCOUNT_USER_DISPLAY = "user_profile.helper.get_full_name_or_username"
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+LOGIN_URL = '/login/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app/static'),
