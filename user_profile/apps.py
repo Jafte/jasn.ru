@@ -1,4 +1,4 @@
-from django.apps import AppConfig
+from django.apps import AppConfig, apps
 
 
 class UserProfileConfig(AppConfig):
@@ -6,4 +6,4 @@ class UserProfileConfig(AppConfig):
 
     def ready(self):
         from actstream import registry
-        registry.register(self.get_model('User'))
+        registry.register(apps.get_model('auth.user'))

@@ -9,6 +9,7 @@ from uuid_upload_path import upload_to
 
 from django.db.models.signals import post_save
 
+
 class Profile(models.Model):
     """ Default profile """
     GENDER_CHOICES = (

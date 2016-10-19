@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'blog',
+    'last_seen',
+    'user_profile',
+
     'allauth',
     'allauth.account',
     'debug_toolbar',
@@ -47,10 +51,6 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'django_cleanup',
     'actstream',
-
-    'blog',
-    'last_seen',
-    'user_profile',
 ]
 
 SITE_ID = 1

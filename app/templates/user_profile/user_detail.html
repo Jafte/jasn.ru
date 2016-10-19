@@ -1,6 +1,6 @@
 {% extends "user_profile/base.html" %}
 
-{% load account static %}
+{% load account static activity_tags %}
 
 {% block title %}Профиль пользователя: {% user_display user_data %}{% endblock %}
 
@@ -61,7 +61,9 @@
         </div>
         {% if user != user_data %}
         <div class="follow">
-            <a href="#" class="pure-button background-primary">Подписаться</a>
+            <span data-href="{% follow_url user_data %}" class="pure-button background-primary">
+                {% if user|is_following:user_data %}Отписаться{% else %}Подписаться{% endif %}
+            </span>
         </div>
         {% endif %}
     </div>
