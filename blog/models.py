@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 from django.core.validators import MinLengthValidator
+from easy_thumbnails.fields import ThumbnailerImageField
+from uuid_upload_path import upload_to
 
 import datetime
 
@@ -15,6 +17,7 @@ class Blog(models.Model):
     description = models.TextField(_('description'), blank=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
+    photo = ThumbnailerImageField(upload_to=upload_to, blank=True)
     owner = models.ForeignKey(User)
 
     class Meta:

@@ -283,6 +283,84 @@ a:hover {
     margin: 2em auto;
 }
 
+#content .blog_list .follow {
+    margin: 3em auto;
+    text-align: center;
+}
+
+#content .blog_list .blog_list_profile_photo {
+    border-radius: 100px;
+    display: block;
+    text-align: center;
+    width: 100px;
+    overflow: hidden;
+    margin: 2em auto;
+    background-color: #ffffff;
+}
+
+#content .blog_list .blog_list_item {
+    background-color: #edf0f4;
+    position: relative;
+    padding: 0 1em;
+    text-align: center;
+}
+
+#content .blog_list .blog_list_item:before, #content .blog_list .blog_list_item:after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    top: 0;
+    bottom: 0;
+}
+
+#content .blog_list .blog_list_item.blog_list_item_dark,
+#content .blog_list .blog_list_item.blog_list_item_dark:before,
+#content .blog_list .blog_list_item.blog_list_item_dark:after{
+    background-color: #edf0f4;
+}
+
+#content .blog_list .blog_list_item.blog_list_item_light,
+#content .blog_list .blog_list_item.blog_list_item_light:before,
+#content .blog_list .blog_list_item.blog_list_item_light:after{
+    background-color: #ffffff;
+}
+
+#content .blog_list .blog_list_item:before {
+    left: 0;
+    margin-left: 100%;
+}
+
+#content .blog_list .blog_list_item:after {
+    right: 0;
+    margin-right: 100%;
+}
+
+
+#content .blog_list .blog_list_item .blog_list_item_data {
+    padding: 2em 0;
+}
+
+#content .blog_list .blog_list_item .profile_link, #content .blog_list .blog_list_item .profile_link:visited {
+    color: #596273;
+    font-size: 2em;
+}
+
+#content .blog_list .blog_list_item .followers {
+    margin-top: 1em;
+}
+
+#content .blog_list .blog_list_item .followers .followers-counter {
+    font-size: 1em;
+}
+
+#content .blog_list .blog_list_item .followers .followers-description {
+    font-size: 0.8em;
+}
+
+#content .blog_list .blog_list_item .follow {
+    margin: 2em auto;
+}
+
 #footer {
     border-top: 1px solid #dce1ea;
     background: #f6f7f9;
@@ -403,6 +481,15 @@ a:hover {
     }
 
     #content .user_profile .users_list .users_list_item .follow {
+        margin: 3.5em auto 1em;
+    }
+
+    #content .blog_list .blog_list_item {
+        padding: 0;
+        text-align: left;
+    }
+
+    #content .blog_list .blog_list_item .follow {
         margin: 3.5em auto 1em;
     }
 
