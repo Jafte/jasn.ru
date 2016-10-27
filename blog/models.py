@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.core.validators import MinLengthValidator
 from easy_thumbnails.fields import ThumbnailerImageField
 from uuid_upload_path import upload_to
+from django.db.models.signals import post_save
 
 import datetime
 
@@ -18,7 +19,7 @@ class Blog(models.Model):
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
     photo = ThumbnailerImageField(upload_to=upload_to, blank=True)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User, related_name='blogs')
 
     class Meta:
         verbose_name = _('blog')
@@ -29,6 +30,15 @@ class Blog(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog-detail', kwargs={'blog_slug': self.slug})
+
+
+def blog_changed(sender, **kwargs):
+    blog = kwargs["instance"]
+    user = blog.owner
+    user.profile.blogs_counter = user.profile.get_active_blogs().count()
+    user.profile.save()
+
+post_save.connect(blog_changed, sender=Blog)
 
 @python_2_unicode_compatible
 class Post(models.Model):

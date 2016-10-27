@@ -52,7 +52,11 @@
                     </ul>
                 </div>
                 <div class="tab-contents">
-                    <div id="blogs" class="tab-content active">vs_kot,  Павлик Морозов, Иван Петров, Федор, Денис Иванович, Мост Радужный,  Лук Репчатый, Саша Пекарь, Username,  Павлик Морозов,  Иван Петров, Федор, Денис Иванович, Мост Радужный,  Лук Репчатый, Иван Петров,  Федор,  Денис Иванович, Мост Радужный, Лук Репчатый, Username, vs_kot,  Павлик Морозов</div>
+                    <div id="blogs" class="tab-content active">
+                        {% for blog in user_data.profile.get_active_blogs %}
+                            <a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a>{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
                     <div id="clubs" class="tab-content"></div>
                     <div id="subscriptions" class="tab-content"></div>
                     <div id="followers" class="tab-content"></div>

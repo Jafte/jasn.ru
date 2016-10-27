@@ -27,7 +27,7 @@ class Profile(models.Model):
     about = models.TextField(_('about me'), blank=True)
     followers_counter = models.PositiveIntegerField(_('followers counter'), default=0)
     subscriptions_counter = models.PositiveIntegerField(_('subscriptions counter'), default=0)
-    blogs_counter = models.PositiveIntegerField(_('subscriptions counter'), default=0)
+    blogs_counter = models.PositiveIntegerField(_('blogs counter'), default=0)
     clubs_counter = models.PositiveIntegerField(_('clubs counter'), default=0)
 
     def last_seen(self):
@@ -38,6 +38,9 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse('user-profile-detail', kwargs={'username': self.user.username})
+
+    def get_active_blogs(self):
+        return self.user.blogs.all().filter(active=True)
 
     def __str__(self):
         return '%s profile' % self.user
