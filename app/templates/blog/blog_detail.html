@@ -7,7 +7,7 @@
     <h2>{{ blog.title }}</h2>
     <p>{{ blog.description }}</p>
     <ul>
-        {% for post in object_list %}
+        {% for post in blog.get_posts %}
             <li>{{ post }}</li>
         {% endfor %}
     </ul>
