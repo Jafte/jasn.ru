@@ -94,6 +94,14 @@ class Post(models.Model):
         return reverse('blog-post-detail', kwargs={'blog_slug': self.blog.slug, 'post_pk': self.pk})
 
 
+@receiver(post_save, sender=Post)
+def post_changed(sender, **kwargs):
+    post, created = kwargs["instance"], kwargs["created"]
+    user = post.owner
+    if created:
+        assign_perm("change_post", post, user)
+
+
 @python_2_unicode_compatible
 class PostImage(models.Model):
     post = models.ForeignKey(Post, related_name='images')
@@ -104,3 +112,12 @@ class PostImage(models.Model):
 
     def __str__(self):
         return 'image for %s' % self.post
+
+
+@receiver(post_save, sender=PostImage)
+def post_changed(sender, **kwargs):
+    img, created = kwargs["instance"], kwargs["created"]
+    user = img.owner
+    if created:
+        assign_perm("change_postimage", img, user)
+        assign_perm("delete_postimage", img, user)
