@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% load account static %}
+
+{% block title %}{% if post %}Редактирование записи{% else %}Новая запись{% endif %}{% endblock %}
+
+{% block content-container %}
+    <h1>{% if post %}Редактирование записи{% else %}Новая запись{% endif %}</h1>
+    <div class="pure-g">
+        <div class="pure-u-3-4">
+            <form class="pure-form pure-form-aligned" method="post" enctype="multipart/form-data" action=".">
+                {% csrf_token %}
+                {% include "snippets/form_snippet_aligned.html" with form=form submit_text="Сохранить" %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

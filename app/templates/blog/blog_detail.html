@@ -1,15 +1,21 @@
 {% extends "blog/base.html" %}
+{% load guardian_tags %}
 
 {% block title %}{{ blog.title }}{% endblock %}
 
 {% block content-container %}
-
+    {% get_obj_perms request.user for blog as "blog_perms" %}
     <h2>{{ blog.title }}</h2>
-    <p>{{ blog.description }}</p>
-    <ul>
-        {% for post in blog.get_posts %}
-            <li>{{ post }}</li>
-        {% endfor %}
-    </ul>
+    <p>{{ blog.description_html | safe }}</p>
+    {% if "write_post" in blog_perms %}
+    <p>
+        <a href="{% url 'blog-post-create' blog_slug=blog.slug %}">новый пост</a>
+    </p>
+    {% endif %}
+    {% for post in blog.get_posts %}
+        <p>
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </p>
+    {% endfor %}
 
 {% endblock %}

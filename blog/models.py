@@ -7,7 +7,8 @@ from django.core.validators import MinLengthValidator
 from easy_thumbnails.fields import ThumbnailerImageField
 from uuid_upload_path import upload_to
 from django.db.models.signals import post_save
-
+from django.dispatch import receiver
+from guardian.shortcuts import assign_perm
 import datetime
 
 STATUS_CHOICES = (
@@ -31,6 +32,7 @@ class Blog(models.Model):
     slug = models.SlugField(_('slug'), unique=True, max_length=100, validators=[MinLengthValidator(4)])
     active = models.BooleanField(_('active'), default=True)
     description = models.TextField(_('description'), blank=True)
+    description_html = models.TextField(_('description html'), blank=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
     photo = ThumbnailerImageField(upload_to=upload_to, blank=True)
@@ -39,6 +41,9 @@ class Blog(models.Model):
     class Meta:
         verbose_name = _('blog')
         verbose_name_plural = _('blogs')
+        permissions = (
+            ('write_post', 'Write post'),
+        )
 
     def __str__(self):
         return '%s by %s' % (self.title, self.owner)
@@ -49,20 +54,27 @@ class Blog(models.Model):
     def get_posts(self):
         return self.posts.all().filter(blog=self, active=True, published__lte=datetime.datetime.now())
 
-
+@receiver(post_save, sender=Blog)
 def blog_changed(sender, **kwargs):
-    blog = kwargs["instance"]
+    blog, created = kwargs["instance"], kwargs["created"]
     user = blog.owner
-    user.profile.blogs_counter = user.profile.get_active_blogs().count()
-    user.profile.save()
+    blogs_counter = user.profile.get_active_blogs().count()
+    if user.profile.blogs_counter != blogs_counter:
+        user.profile.blogs_counter = blogs_counter
+        user.profile.save()
 
-post_save.connect(blog_changed, sender=Blog)
+    if created:
+        assign_perm("change_blog", blog, user)
+        assign_perm("write_post", blog, user)
+
 
 @python_2_unicode_compatible
 class Post(models.Model):
     title = models.CharField(_('title'), max_length=200)
     author = models.ForeignKey(User)
     blog = models.ForeignKey(Blog, related_name='posts')
+    body = models.TextField(_('body'))
+    body_html = models.TextField(_('body html'))
     status = models.IntegerField(_('status'), choices=STATUS_CHOICES, default=2)
     active = models.BooleanField(_('active'), default=True)
     published = models.DateTimeField(_('published'), default=datetime.datetime.now)
@@ -83,27 +95,10 @@ class Post(models.Model):
 
 
 @python_2_unicode_compatible
-class PostBlock(models.Model):
-    post = models.ForeignKey(Post, related_name='blocks')
-    type = models.IntegerField(_('type'), choices=TYPE_CHOICES, default=1)
-    text = models.TextField(_('data'))
-    description = models.CharField(_('description'), max_length=200, blank=True)
-    owner = models.ForeignKey(User, related_name='blocks')
-    order = models.IntegerField(_('order'), default=100)
-    created = models.DateTimeField(_('created'), auto_now_add=True)
-    modified = models.DateTimeField(_('modified'), auto_now=True)
-
-    def __str__(self):
-        return 'block %s for %s' % (self.type, self.post)
-
-
-@python_2_unicode_compatible
 class PostImage(models.Model):
     post = models.ForeignKey(Post, related_name='images')
-    block = models.ManyToManyField(PostBlock, related_name='images', blank=True, null=True)
     owner = models.ForeignKey(User, related_name='images')
     image = ThumbnailerImageField(upload_to=upload_to)
-    description = models.CharField(_('description'), max_length=200, blank=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 

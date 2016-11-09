@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'django_cleanup',
     'actstream',
+    'guardian',
 ]
 
 SITE_ID = 1
@@ -126,6 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
 )
 
 ACCOUNT_SESSION_REMEMBER = True
