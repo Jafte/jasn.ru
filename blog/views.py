@@ -40,7 +40,7 @@ class BlogPostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         user = self.request.user
         form.instance.author = user
         form.instance.blog = self.blog
-        form.instance.body_html = markdown.markdown(self.body)
+        form.instance.body_html = markdown.markdown(form.instance.body)
         return super(BlogPostCreate, self).form_valid(form)
 
     def get_success_url(self):
