@@ -36,6 +36,7 @@ class Blog(models.Model):
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
     photo = ThumbnailerImageField(upload_to=upload_to, blank=True)
+    background = ThumbnailerImageField(upload_to=upload_to, blank=True)
     owner = models.ForeignKey(User, related_name='blogs')
 
     class Meta:
@@ -75,6 +76,7 @@ class Post(models.Model):
     blog = models.ForeignKey(Blog, related_name='posts')
     body = models.TextField(_('body'))
     body_html = models.TextField(_('body html'))
+    preview = models.TextField(_('preview'), default='')
     status = models.IntegerField(_('status'), choices=STATUS_CHOICES, default=2)
     active = models.BooleanField(_('active'), default=True)
     published = models.DateTimeField(_('published'), default=datetime.datetime.now)

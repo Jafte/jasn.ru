@@ -1,13 +1,41 @@
 {% extends "blog/base.html" %}
-{% load guardian_tags %}
+{% load guardian_tags account static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content-before-container %}
+    {% get_obj_perms request.user for post as "post_perms" %}
+    <div class="blog-info">
+        <div class="container">
+            <div class="user_profile_photo">
+            {% if post.author.profile.photo %}
+                <img src="{{ post.author.profile.photo.small.url }}" alt="{% user_display post.author %}">
+            {% else %}
+                <img src="{% static "app/img/user.svg" %}" alt="{% user_display post.author %}" width="60">
+            {% endif %}
+            </div>
+            <div class="user_info">
+                <div class="post_user_blog">
+                    Пишет <a class="profile_link" href="{{ post.author.profile.get_absolute_url }}">{% user_display post.author %}</a>
+                    в блоге <a class="blog_link" href="{{ post.blog.get_absolute_url }}">{{ post.blog.title }}</a>
+                </div>
+                <div class="post_published">
+                    {{ post.published | date:"l, j E Y, H:i" }}
+                    {% if 'change_post' in post_perms %}
+                        | <a href="{% url 'blog-post-update' blog_slug=post.blog.slug post_pk=post.pk %}">редактировать</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endblock %}
 
 {% block content-container %}
-    {% get_obj_perms request.user for post as "post_perms" %}
-    <h2>{{ post.title }}</h2>
-    {{ post.body_html | safe }}
-    {% if 'change_post' in post_perms %}
-    <p>
-        <a href="{% url 'blog-post-update' blog_slug=post.blog.slug post_pk=post.pk %}">изменить</a>
-    </p>
-    {% endif %}
+    <div class="pure-g">
+        <div class="pure-u-1-1">
+            <h1>{{ post.title }}</h1>
+            {{ post.body_html | safe }}
+        </div>
+    </div>
 {% endblock %}

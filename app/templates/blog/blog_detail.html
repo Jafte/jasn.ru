@@ -1,21 +1,47 @@
 {% extends "blog/base.html" %}
-{% load guardian_tags %}
+{% load guardian_tags account static %}
 
 {% block title %}{{ blog.title }}{% endblock %}
 
-{% block content-container %}
+{% block content-before-container %}
+    <div class="blog_background" {% if blog.background %}style="background-image: url({{ blog.background.url }})"{% endif %}></div>
     {% get_obj_perms request.user for blog as "blog_perms" %}
-    <h2>{{ blog.title }}</h2>
-    <p>{{ blog.description_html | safe }}</p>
-    {% if "write_post" in blog_perms %}
-    <p>
-        <a href="{% url 'blog-post-create' blog_slug=blog.slug %}">новый пост</a>
-    </p>
-    {% endif %}
-    {% for post in blog.get_posts %}
-        <p>
-            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-        </p>
-    {% endfor %}
+    <div class="blog_profile_content">
+        <div class="container">
+            <div class="pure-g">
+                <div class="pure-u-1-1 pure-u-md-3-4">
+                    <h2 class="color-primary">{{ blog.title }}</h2>
+                    <p class="smaller">Владелец - <a class="profile_link" href="{{ blog.owner.profile.get_absolute_url }}">{% user_display blog.owner %}</a></p>
+                    {% if blog.description_html %}
+                    {{ blog.description_html | safe }}
+                    {% endif %}
+                </div>
+                <div class="pure-u-1-1 pure-u-md-1-4">
+                    <div class="blog_photo">
+                    {% if blog.photo %}
+                        <img src="{{ blog.photo.profile.url }}" alt="{{ blog.title }}">
+                    {% else %}
+                        <img src="{% static "app/img/user.svg" %}" alt="{{ blog.title }}" width="170">
+                    {% endif %}
+                    </div>
+                    <div class="blog_controls">
+                    {% if "change_blog" in blog_perms %}
+                        <a class="pure-button button-small" href="{% url 'blog-update' blog_slug=blog.slug %}">редактировать блог</a>
+                    {% endif %}
+                    {% if "write_post" in blog_perms %}
+                        <a class="pure-button button-small" href="{% url 'blog-post-create' blog_slug=blog.slug %}">написать новый пост</a>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
+{% block content-container %}
+    <div class="pure-g">
+    {% for post in blog.get_posts %}
+        {% include "snippets/post_list.html" with post=post %}
+    {% endfor %}
+    </div>
 {% endblock %}

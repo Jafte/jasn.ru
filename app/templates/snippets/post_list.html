@@ -1,0 +1,32 @@
+{% load guardian_tags account static %}
+<div class="pure-u-1-1">
+    <div class="post-list-info">
+        <div class="h2">
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </div>
+        <div class="pure-g">
+            <div class="author pure-u-1-4">
+                <a class="profile_link" href="{{ post.author.profile.get_absolute_url }}">
+                    <span class="user_photo">
+                        {% if post.author.profile.photo %}
+                            <img src="{{ post.author.profile.photo.micro.url }}" alt="{% user_display post.author %}">
+                        {% else %}
+                            <img src="{% static "app/img/user.svg" %}" alt="{% user_display post.author %}" width="20">
+                        {% endif %}
+                    </span>
+                </a>&nbsp;
+                <a class="profile_link" href="{{ post.author.profile.get_absolute_url }}">{% user_display post.author %}</a>
+            </div>
+            <div class="datetime pure-u-3-4">
+                {{ post.published | date:"l, j E Y, H:i" }}
+            </div>
+        </div>
+    </div>
+    <div class="post-list-preview">
+        {{ post.preview | safe }}
+    </div>
+    <div class="post-list-stats">
+        0 комментариев,
+        0 ретинга
+    </div>
+</div>

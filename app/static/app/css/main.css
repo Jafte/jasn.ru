@@ -106,10 +106,19 @@ a:hover {
     background: #7cbff2;
 }
 
-#personal_menu a span {
+#personal_menu a > span {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
+}
+
+#personal_menu a .user_photo {
+    width: 20px;
+    height: 20px;
+    margin-bottom: -3px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: inline-block;
 }
 
 #messages {
@@ -361,6 +370,100 @@ a:hover {
     margin: 2em auto;
 }
 
+#content .blog-info {
+    background-color: #e6eaf0;
+    padding: 0.5em 0;
+}
+
+#content .blog-info .user_profile_photo {
+    border-radius: 60px;
+    display: block;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    margin: 0;
+    background-color: #ffffff;
+    float: left;
+}
+
+#content .blog-info .user_info {
+    margin-left: 80px;
+}
+
+#content .blog-info .user_info .post_user_blog {
+    padding-top: 0.5em;
+}
+
+#content .blog-info .user_info .post_published {
+    padding-top: 0.5em;
+}
+
+#content .blog .blog_background {
+    height: 205px;
+    background-color: #bfc4cc;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+#content .blog .blog_profile_content {
+    position: relative;
+    min-height: 200px;
+    padding-top: 1em;
+    background-color: #edf0f4;
+}
+
+#content .blog .blog_photo {
+    border-radius: 170px;
+    border: 5px solid #ffffff;
+    display: block;
+    text-align: center;
+    width: 170px;
+    overflow: hidden;
+    margin: -90px auto 50px auto;
+    background-color: #ffffff;
+}
+
+#content .blog .blog_controls {
+    text-align: center;
+}
+
+#content .blog .blog_controls a {
+    margin-bottom: 0.5em;
+}
+
+#content .blog .post-list-info {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+#content .blog .post-list-info .h2 {
+    font-size: 2em;
+}
+
+#content .blog .post-list-info .h2 a,
+#content .blog .post-list-info .h2 a:hover,
+#content .blog .post-list-info .h2 a:visited {
+    color: #596273;
+}
+
+#content .blog .post-list-info .datetime {
+    color: #b8bdc5;
+}
+
+#content .blog .post-list-info .user_photo {
+    width: 20px;
+    height: 20px;
+    margin-bottom: -3px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+#content .blog .post-list-stats {
+    margin-top: 1em;
+}
+
 #footer {
     border-top: 1px solid #dce1ea;
     background: #f6f7f9;
@@ -416,6 +519,11 @@ a:hover {
     font-size: 0.9em;
 }
 
+.button-small {
+    font-size: 85%;
+    padding: 0.2em 1em;
+}
+
 .tab, .tab:visited {
     color: #FFFFFF;
     background-color: #bfc4cc;
@@ -438,6 +546,12 @@ a:hover {
 }
 
 .form_label label {
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 

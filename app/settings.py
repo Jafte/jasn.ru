@@ -166,6 +166,8 @@ THUMBNAIL_ALIASES = {
     '': {
         'profile': {'size': (170, 170), 'crop': True},
         'list': {'size': (100, 100), 'crop': True},
+        'small': {'size': (60, 60), 'crop': True},
+        'micro': {'size': (20, 20), 'crop': True},
     },
 }
 
