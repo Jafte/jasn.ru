@@ -73,7 +73,7 @@ class BlogCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'blog.add_blog'
     template_name = 'blog/blog_form.html'
     model = Blog
-    fields = ['title', 'slug', 'photo', 'description']
+    fields = ['title', 'slug', 'photo', 'background', 'description']
 
     def form_valid(self, form):
         user = self.request.user
@@ -92,7 +92,7 @@ class BlogUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Blog
     slug_field = 'slug'
     slug_url_kwarg = 'blog_slug'
-    fields = ['title', 'photo', 'description']
+    fields = ['title', 'photo', 'background', 'description']
     context_object_name = 'blog'
 
     def form_valid(self, form):
