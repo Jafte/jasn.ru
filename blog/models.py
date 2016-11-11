@@ -53,7 +53,7 @@ class Blog(models.Model):
         return reverse('blog-detail', kwargs={'blog_slug': self.slug})
 
     def get_posts(self):
-        return self.posts.all().filter(blog=self, active=True, published__lte=datetime.datetime.now())
+        return self.posts.all().filter(blog=self, active=True, status=2, published__lte=datetime.datetime.now())
 
 @receiver(post_save, sender=Blog)
 def blog_changed(sender, **kwargs):
