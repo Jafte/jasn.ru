@@ -8,5 +8,5 @@ class IndexPageList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexPageList, self).get_context_data(**kwargs)
-        context["post_list"] = Post.objects.latest().filter(active=True, status=2, published__lte=datetime.datetime.now())[:10]
+        context["post_list"] = Post.objects.filter(active=True, status=2, published__lte=datetime.datetime.now()).order_by("-published")[:20]
         return context
