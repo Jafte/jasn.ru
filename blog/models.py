@@ -65,8 +65,8 @@ def blog_changed(sender, **kwargs):
         user.profile.save()
 
     if created:
-        assign_perm("change_blog", blog, user)
-        assign_perm("write_post", blog, user)
+        assign_perm("change_blog", user, blog)
+        assign_perm("write_post", user, blog)
 
 
 @python_2_unicode_compatible
@@ -100,8 +100,8 @@ class Post(models.Model):
 def post_changed(sender, **kwargs):
     post, created = kwargs["instance"], kwargs["created"]
     user = post.owner
-    if created:
-        assign_perm("change_post", post, user)
+    if user and created:
+        assign_perm("change_post", user, post)
 
 
 @python_2_unicode_compatible
@@ -120,6 +120,6 @@ class PostImage(models.Model):
 def post_changed(sender, **kwargs):
     img, created = kwargs["instance"], kwargs["created"]
     user = img.owner
-    if created:
-        assign_perm("change_postimage", img, user)
-        assign_perm("delete_postimage", img, user)
+    if user and created:
+        assign_perm("change_postimage", user, img)
+        assign_perm("delete_postimage", user, img)

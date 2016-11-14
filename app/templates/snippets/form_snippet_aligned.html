@@ -27,7 +27,10 @@
         <div class="pure-u-1 pure-u-md-1-4"></div>
         <div class="pure-u-1 pure-u-md-3-4">
             <div class="form_field">
-                <button type="submit" class="pure-button pure-button-primary">{{ submit_text }}</button>
+                <button type="submit" class="pure-button background-primary">{{ submit_text }}</button>
+                {% if reset_url and reset_text %}
+                &nbsp;<a href="{{ reset_url }}" class="pure-button background-secondary">{{ reset_text }}</a>
+                {% endif %}
             </div>
         </div>
     </div>

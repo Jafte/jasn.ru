@@ -10,8 +10,47 @@
         <div class="pure-u-3-4">
             <form class="pure-form pure-form-aligned" method="post" enctype="multipart/form-data" action=".">
                 {% csrf_token %}
+                {% if post %}
+                {% include "snippets/form_snippet_aligned.html" with form=form submit_text="Сохранить" reset_url=post.get_absolute_url reset_text="Вернуться к записи" %}
+                {% else %}
                 {% include "snippets/form_snippet_aligned.html" with form=form submit_text="Сохранить" %}
+                {% endif %}
             </form>
+        </div>
+        <div class="pure-u-1-4">
+            {% for image in images %}
+                <div>
+                    <img src="{{ image.image.list.url }}" alt="">
+                </div>
+                <div>
+                    исходник:<br/>
+                    ![{{ image.image.url }}]({{ image.image.url }})
+                </div>
+                <div>
+                    600:<br/>
+                    ![{{ image.image.600.url }}]({{ image.image.600.url }})
+                </div>
+                <div>
+                    400:<br/>
+                    ![{{ image.image.400.url }}]({{ image.image.400.url }})
+                </div>
+                <div>
+                    200:<br/>
+                    ![{{ image.image.200.url }}]({{ image.image.200.url }})
+                </div>
+                <div>
+                    600 + попап:<br/>
+                    [![{{ image.image.600.url }}]({{ image.image.600.url }})]({{ image.image.url }})
+                </div>
+                <div>
+                    400 + попап:<br/>
+                    [![{{ image.image.400.url }}]({{ image.image.400.url }})]({{ image.image.url }})
+                </div>
+                <div>
+                    200 + попап:<br/>
+                    [![{{ image.image.200.url }}]({{ image.image.200.url }})]({{ image.image.url }})
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

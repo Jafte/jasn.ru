@@ -168,6 +168,9 @@ THUMBNAIL_ALIASES = {
         'list': {'size': (100, 100), 'crop': True},
         'small': {'size': (60, 60), 'crop': True},
         'micro': {'size': (20, 20), 'crop': True},
+        '600': {'size': (600, 800), 'crop': True},
+        '400': {'size': (400, 600), 'crop': True},
+        '200': {'size': (200, 300), 'crop': True},
     },
 }
 

@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import PermissionDenied
-from .models import Blog, Post
+from .models import Blog, Post, PostImage
 from guardian.mixins import PermissionRequiredMixin
 import markdown
 
@@ -64,6 +64,7 @@ class BlogPostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(BlogPostUpdate, self).get_context_data(**kwargs);
         context['blog'] = self.blog
+        context['images'] = PostImage.objects.filter(post=self.object)
         return context
 
     def dispatch(self, request, *args, **kwargs):

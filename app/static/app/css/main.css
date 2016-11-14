@@ -464,6 +464,15 @@ a:hover {
     margin-top: 1em;
 }
 
+.form_field #id_title,
+.form_field #id_body {
+    width: 100%;
+}
+
+.form_field #id_body {
+    height: 30em;
+}
+
 #footer {
     border-top: 1px solid #dce1ea;
     background: #f6f7f9;
@@ -505,6 +514,11 @@ a:hover {
 .background-primary, .background-primary:visited {
     background: #79aef2;
     color: #ffffff;
+}
+
+.background-secondary, .background-secondary:visited {
+    background: #bfc4cc;
+    color: #222222;
 }
 
 .color-primary {
