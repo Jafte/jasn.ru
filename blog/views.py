@@ -45,7 +45,15 @@ class BlogPostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         user = self.request.user
         form.instance.author = user
         form.instance.blog = self.blog
-        form.instance.body_html = markdown.markdown(form.instance.body)
+        body_html = markdown.markdown(form.instance.body)
+        body_html_list = body_html.split('[cut]', 1)
+        if len(body_html_list) == 2:
+            form.instance.preview = body_html_list[0]
+            form.instance.body_html = body_html.replace('[cut]', '')
+        else:
+            form.instance.preview = ""
+            form.instance.body_html = body_html
+
         return super(BlogPostCreate, self).form_valid(form)
 
     def get_success_url(self):
@@ -72,7 +80,15 @@ class BlogPostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return super(BlogPostUpdate, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.instance.body_html = markdown.markdown(form.instance.body)
+        body_html = markdown.markdown(form.instance.body)
+        body_html_list = body_html.split('[cut]', 1)
+        if len(body_html_list) == 2:
+            form.instance.preview = body_html_list[0]
+            form.instance.body_html = body_html.replace('[cut]', '')
+        else:
+            form.instance.preview = ""
+            form.instance.body_html = body_html
+
         return super(BlogPostUpdate, self).form_valid(form)
 
     def get_success_url(self):

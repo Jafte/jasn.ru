@@ -23,32 +23,16 @@
                     <img src="{{ image.image.list.url }}" alt="">
                 </div>
                 <div>
-                    исходник:<br/>
-                    ![{{ image.image.url }}]({{ image.image.url }})
+                    исходник: {{ image.image.url }}
                 </div>
                 <div>
-                    600:<br/>
-                    ![{{ image.image.600.url }}]({{ image.image.600.url }})
+                    600: {{ image.image.600.url }}
                 </div>
                 <div>
-                    400:<br/>
-                    ![{{ image.image.400.url }}]({{ image.image.400.url }})
+                    400: {{ image.image.400.url }}
                 </div>
                 <div>
-                    200:<br/>
-                    ![{{ image.image.200.url }}]({{ image.image.200.url }})
-                </div>
-                <div>
-                    600 + попап:<br/>
-                    [![{{ image.image.600.url }}]({{ image.image.600.url }})]({{ image.image.url }})
-                </div>
-                <div>
-                    400 + попап:<br/>
-                    [![{{ image.image.400.url }}]({{ image.image.400.url }})]({{ image.image.url }})
-                </div>
-                <div>
-                    200 + попап:<br/>
-                    [![{{ image.image.200.url }}]({{ image.image.200.url }})]({{ image.image.url }})
+                    200: {{ image.image.200.url }}
                 </div>
             {% endfor %}
         </div>
