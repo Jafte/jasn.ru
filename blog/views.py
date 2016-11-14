@@ -27,10 +27,15 @@ class BlogPostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'blog/post_form.html'
     model = Post
     blog = None
-    fields = ['title', 'status', 'body', 'published']
+    fields = ['title', 'body', 'published', 'status']
 
     def get_permission_object(self):
         return self.blog
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogPostCreate, self).get_context_data(**kwargs);
+        context['blog'] = self.blog
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         self.blog = get_object_or_404(Blog, slug=kwargs.get('blog_slug', False))
@@ -52,8 +57,18 @@ class BlogPostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'blog.change_post'
     template_name = 'blog/post_form.html'
     model = Post
+    blog = None
     pk_url_kwarg = 'post_pk'
-    fields = ['title', 'status', 'body', 'published']
+    fields = ['title', 'body', 'published', 'status']
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogPostUpdate, self).get_context_data(**kwargs);
+        context['blog'] = self.blog
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        self.blog = get_object_or_404(Blog, slug=kwargs.get('blog_slug', False))
+        return super(BlogPostUpdate, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.instance.body_html = markdown.markdown(form.instance.body)

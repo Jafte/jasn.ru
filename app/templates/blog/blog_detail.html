@@ -24,12 +24,12 @@
                         <img src="{% static "app/img/user.svg" %}" alt="{{ blog.title }}" width="170">
                     {% endif %}
                     </div>
-                    <div class="blog_controls">
+                    <div class="blog_controls pure-g">
                     {% if "change_blog" in blog_perms %}
-                        <a class="pure-button button-small" href="{% url 'blog-update' blog_slug=blog.slug %}">редактировать блог</a>
+                        <a class="pure-button button-small pure-u-1-1" href="{% url 'blog-update' blog_slug=blog.slug %}">редактировать блог</a>
                     {% endif %}
                     {% if "write_post" in blog_perms %}
-                        <a class="pure-button button-small" href="{% url 'blog-post-create' blog_slug=blog.slug %}">написать новый пост</a>
+                        <a class="pure-button button-small pure-u-1-1" href="{% url 'blog-post-create' blog_slug=blog.slug %}">написать новый пост</a>
                     {% endif %}
                     </div>
                 </div>
