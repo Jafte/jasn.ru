@@ -52,7 +52,11 @@ INSTALLED_APPS = [
     'django_cleanup',
     'actstream',
     'guardian',
+    'tastypie',
 ]
+
+
+TASTYPIE_DEFAULT_FORMATS = ['json', 'yaml']
 
 SITE_ID = 1
 

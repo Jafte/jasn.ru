@@ -35,6 +35,36 @@
                     200: {{ image.image.200.url }}
                 </div>
             {% endfor %}
+            <form>
+                <input type="file" id="uploadfiles" multiple="multiple" >
+                {% csrf_token %}
+            </form>
+            <script>
+                var uploadfiles = document.querySelector('#uploadfiles');
+                var csrftoken = document.querySelector("input[name='csrfmiddlewaretoken']");
+                uploadfiles.addEventListener('change', function () {
+                    var files = this.files;
+                    for(var i=0; i<files.length; i++){
+                        uploadFile(this.files[i]); // call the function to upload the file
+                    }
+                }, false);
+
+                function uploadFile(file){
+                    var url = '/api/v1/image/';
+                    var xhr = new XMLHttpRequest();
+                    var fd = new FormData();
+                    xhr.open("POST", url, true);
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            // Every thing ok, file uploaded
+                            console.log(xhr.responseText); // handle response.
+                        }
+                    };
+                    fd.append("image", file);
+                    fd.append("csrftoken", csrftoken.value);
+                    xhr.send(fd);
+                }
+            </script>
         </div>
     </div>
 {% endblock %}
