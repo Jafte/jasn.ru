@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'timezone_field',
     'easy_thumbnails',
     'django_cleanup',
+    'crispy_forms',
     'actstream',
     'guardian',
     'tastypie',
@@ -177,6 +178,8 @@ THUMBNAIL_ALIASES = {
         '200': {'size': (200, 200), 'crop': False},
     },
 }
+
+CRISPY_TEMPLATE_PACK = "pure_form"
 
 try:
     from app.local_settings import *

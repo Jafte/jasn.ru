@@ -16,16 +16,6 @@ STATUS_CHOICES = (
     (2, _('Public')),
 )
 
-TYPE_CHOICES = (
-    (1, _('Text')),
-    (2, _('Quotation')),
-    (3, _('Link')),
-    (4, _('Video')),
-    (5, _('Single Image')),
-    (6, _('Gallery Image')),
-)
-
-
 @python_2_unicode_compatible
 class Blog(models.Model):
     title = models.CharField(_('title'), max_length=100)

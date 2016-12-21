@@ -6,16 +6,20 @@ from blog.models import PostImage, Post
 
 
 class PostResource(ModelResource):
+    body_html = fields.CharField(attribute='body_html', use_in='detail')
+
     class Meta:
         queryset = Post.objects.all()
         resource_name = 'post'
-        fields = ['id', 'title']
+        fields = ['id', 'title', 'body_html']
         list_allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'put', 'patch']
         authentication = Authentication()
         authorization = DjangoAuthorization()
 
     def get_object_list(self, request):
         return super(PostResource, self).get_object_list(request).filter(author=request.user)
+
 
 
 class ImageResource(ModelResource):

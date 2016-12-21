@@ -1,0 +1,12 @@
+{% load crispy_forms_utils %}
+<fieldset>
+{% specialspaceless %}
+    {% if include_media %}{{ form.media }}{% endif %}
+    {% if form_show_errors %}
+        {% include "pure_form/errors.html" %}
+    {% endif %}
+    {% for field in form %}
+        {% include "pure_form/field.html" %}
+    {% endfor %}
+{% endspecialspaceless %}
+</fieldset>

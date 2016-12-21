@@ -1,17 +1,19 @@
 {% extends "account/base.html" %}
 
+{% load crispy_forms_filters %}
+
 {% block title %}Авторизация{% endblock %}
 
 {% block content-account %}
 <h1>Авторизация</h1>
 
-<form class="pure-form pure-form-stacked" method="POST" action="{% url 'account_login' %}">
+<form class="pure-form pure-form-aligned" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form|crispy }}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <button class="pure-button button-primary" type="submit">Вход</button>
+  <button class="pure-button button-primary pure-u-1-2" type="submit">Вход</button>
 </form>
 
 <p><a href="{% url 'account_reset_password' %}">Забыл пароль?</a> или <a href="{% url 'account_signup' %}">забыл зарегистрироваься?</a></p>
