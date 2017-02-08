@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^(?P<blog_slug>[\w-]+)/post-create/$', BlogPostCreate.as_view(), name='blog-post-create'),
     url(r'^(?P<blog_slug>[\w-]+)/update/$', BlogUpdate.as_view(), name='blog-update'),
     url(r'^(?P<blog_slug>[\w-]+)/p(?P<post_pk>[0-9]+)/$', BlogPostDetail.as_view(), name='blog-post-detail'),
+    url(r'^(?P<blog_slug>[\w-]+)/p(?P<post_pk>[0-9]+)/update/$', BlogPostUpdate.as_view(), name='blog-post-update'),
     url(r'^(?P<blog_slug>[\w-]+)/$', BlogDetail.as_view(), name='blog-detail'),
 ]

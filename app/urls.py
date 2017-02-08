@@ -1,13 +1,7 @@
 from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
-from tastypie.api import Api
-from blog.api import ImageResource, PostResource
 from .views import IndexPageList
-
-v1_api = Api(api_name='v1')
-v1_api.register(ImageResource())
-v1_api.register(PostResource())
 
 
 urlpatterns = [
@@ -15,7 +9,6 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls')),
     url(r'^user/', include('user_profile.urls')),
     url(r'^activity/', include('actstream.urls')),
-    url(r'^api/', include(v1_api.urls)),
 
     url(r'^$', IndexPageList.as_view(), name='index'),
 

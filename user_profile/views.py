@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from user_profile.forms import UserForm
 from django.urls import reverse
+from django.conf import settings
 from blog.models import Blog
 from actstream import action
 
@@ -16,7 +17,7 @@ class UserDetail(DetailView):
 
 
 class UserList(ListView):
-    queryset = User.objects.filter(is_active=True)
+    queryset = User.objects.filter(is_active=True).exclude(username=settings.ANONYMOUS_USER_NAME)
     template_name = 'user_profile/user_list.html'
 
 

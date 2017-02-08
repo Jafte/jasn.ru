@@ -53,9 +53,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'actstream',
     'guardian',
-    'tastypie',
 ]
 
+ANONYMOUS_USER_NAME = 'an0n'
 
 TASTYPIE_DEFAULT_FORMATS = ['json', 'yaml']
 

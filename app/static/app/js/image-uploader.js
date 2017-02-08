@@ -138,60 +138,6 @@ ImageUploader = function(dialog) {
 
     });
 
-	function rotateImage(direction) {
-        // Request a rotated version of the image from the server
-        var formData;
-
-        // Define a function to handle the request completion
-        xhrComplete = function (ev) {
-            // Check the request is complete
-            if (ev.target.readyState != 4) {
-                return;
-            }
-
-            // Clear the request
-            xhr = null
-            xhrComplete = null
-
-            // Free the dialog from its busy state
-            dialog.busy(false);
-
-            // Handle the result of the rotation
-            if (parseInt(ev.target.status) == 200) {
-                // Unpack the response (from JSON)
-                var response = JSON.parse(ev.target.responseText);
-
-                // Populate the dialog
-                dialog.populate(response.image, response.size);
-
-
-            } else {
-                // The request failed, notify the user
-                new ContentTools.FlashUI('no');
-            }
-        }
-
-        // Set the dialog to busy while the rotate is performed
-        dialog.busy(true);
-
-        // Build the form data to post to the server
-        formData = new FormData();
-        formData.append('direction', direction);
-
-        // Make the request
-        xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener('readystatechange', xhrComplete);
-        API.call('put', '/api/images/update/' + image.id, formData, true, xhrComplete)
-    }
-
-    dialog.bind('imageUploader.rotateCCW', function () {
-        rotateImage('CCW');
-    });
-
-    dialog.bind('imageUploader.rotateCW', function () {
-        rotateImage('CW');
-    });
-
 }
 
 ContentTools.IMAGE_UPLOADER = ImageUploader;

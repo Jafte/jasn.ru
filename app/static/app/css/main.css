@@ -568,6 +568,12 @@ a:hover {
     clear: both;
 }
 
+.ct-app .ct-widget.ct-ignition {
+    right: 146px;
+    left: auto;
+    position: fixed;
+    top: 146px;
+}
 
 /* ≥ 568px */
 @media screen and (min-width: 35.5em) {

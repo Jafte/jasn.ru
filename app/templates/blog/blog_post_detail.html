@@ -31,28 +31,17 @@
     {% get_obj_perms request.user for post as "post_perms" %}
     <div class="pure-g">
         <div class="pure-u-1-1">
-            <h1{% if 'change_post' in post_perms %} data-fixture data-name="title" {% endif %}>{{ post.title }}</h1>
-            {% if 'change_post' in post_perms %}<div data-editable data-name="body" >{% endif %}
+            <h1>{{ post.title }}</h1>
             {{ post.body_html | safe }}
-            {% if 'change_post' in post_perms %}</div>{% endif %}
         </div>
     </div>
 {% endblock %}
 
 {% block extra_body %}
-    {% get_obj_perms request.user for post as "post_perms" %}
-    {% if 'change_post' in post_perms %}
-    <script src="{% static 'app/js/api.js' %}"></script>
-    <script src="{% static 'app/editor/content-tools.min.js' %}"></script>
-    <script src="{% static 'app/js/image-uploader.js' %}"></script>
-    <script src="{% static 'app/editor/editor.js' %}"></script>
-    {% endif %}
+
 {% endblock %}
 
 {% block extrahead %}
-    {% get_obj_perms request.user for post as "post_perms" %}
-    {% if 'change_post' in post_perms %}
-    <link rel="stylesheet" type="text/css" href="{% static 'app/editor/content-tools.min.css' %}">
-    {% endif %}
-    <meta name="page-id" content="{{post.id}}"/>
+    <meta name="post-id" content="{% if post.id %}{{post.id}}{% else %}0{% endif %}"/>
+    <meta name="blog-id" content="{{ post.blog.pk }}"/>
 {% endblock %}
