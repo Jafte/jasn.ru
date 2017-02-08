@@ -96,7 +96,7 @@ def post_changed(sender, **kwargs):
 
 @python_2_unicode_compatible
 class PostImage(models.Model):
-    post = models.ForeignKey(Post, related_name='images')
+    post = models.ForeignKey(Post, related_name='images', blank=True, null=True)
     owner = models.ForeignKey(User, related_name='images')
     image = ThumbnailerImageField(upload_to=upload_to)
     created = models.DateTimeField(_('created'), auto_now_add=True)

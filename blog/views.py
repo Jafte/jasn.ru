@@ -1,9 +1,9 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import PermissionDenied
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from .models import Blog, Post, PostImage
 from guardian.mixins import PermissionRequiredMixin
 import markdown
@@ -100,7 +100,13 @@ class BlogPostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         form.instance.body_html = markdown.markdown(form.instance.body)
         form.instance.author = user
         form.instance.blog = self.get_blog()
-        return super(BlogPostCreate, self).form_valid(form)
+        self.object = form.save()
+
+        images = PostImage.objects.filter(post__is_null=True, owner=user)
+        if images:
+            images.update(post=self.object)
+
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         return self.object.get_absolute_url()
@@ -108,6 +114,7 @@ class BlogPostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class BlogPostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     raise_exception = True
+    pk_url_kwarg = 'post_pk'
     permission_required = 'post.change_post'
     template_name = 'blog/blog_post_form.html'
     model = Post
@@ -122,6 +129,7 @@ class BlogPostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(BlogPostUpdate, self).get_context_data(**kwargs)
         context["blog"] = self.get_blog()
+        context["images"] = PostImage.objects.filter(post=self.object)
 
         return context
 
@@ -134,3 +142,40 @@ class BlogPostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
+
+class BlogPostImageCreate(View):
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        if request.is_ajax():
+            image = request.FILES.get('image')
+            post_id = request.POST.get('post_id')
+            if image:
+                post_image = PostImage(
+                    image=image,
+                    owner=user,
+                )
+
+                if post_id:
+                    post_image.post = post_id
+
+                post_image.save()
+
+                return JsonResponse({
+                    'result': 'success',
+                    'data': {
+                        'source': post_image.image.ur
+                    }
+                })
+
+            return JsonResponse({
+                'result': 'error',
+                'message': 'no file :('
+            })
+
+        return JsonResponse({
+            'result': 'error',
+            'message': 'fuck off'
+        })

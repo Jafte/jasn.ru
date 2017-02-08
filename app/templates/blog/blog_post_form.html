@@ -20,51 +20,58 @@
         <div class="pure-u-1-4">
             {% for image in images %}
                 <div>
-                    <img src="{{ image.image.list.url }}" alt="">
-                </div>
-                <div>
-                    исходник: {{ image.image.url }}
-                </div>
-                <div>
-                    600: {{ image.image.600.url }}
-                </div>
-                <div>
-                    400: {{ image.image.400.url }}
-                </div>
-                <div>
-                    200: {{ image.image.200.url }}
+                    <img
+                            id="i{{ image.pk }}"
+                            src="{{ image.image.list.url }}"
+                            alt=""
+                            data-source="{{ image.image.url }}"
+                            data-600="{{ image.image.600.url }}"
+                            data-400="{{ image.image.400.url }}"
+                            data-200="{{ image.image.200.url }}"
+                            onclick="showImageCode('i{{ image.pk }}');"
+                    >
                 </div>
             {% endfor %}
-            <form>
-                <input type="file" id="uploadfiles" multiple="multiple" >
-                {% csrf_token %}
-            </form>
-            <script>
-                var uploadfiles = document.querySelector('#uploadfiles');
-                var csrftoken = document.querySelector("input[name='csrfmiddlewaretoken']");
-                uploadfiles.addEventListener('change', function () {
-                    var files = this.files;
-                    for(var i=0; i<files.length; i++){
-                        uploadFile(this.files[i]); // call the function to upload the file
-                    }
-                }, false);
-
-                function uploadFile(file){
-                    var url = '/api/v1/image/';
-                    var xhr = new XMLHttpRequest();
-                    var fd = new FormData();
-                    xhr.open("POST", url, true);
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            // Every thing ok, file uploaded
-                            console.log(xhr.responseText); // handle response.
-                        }
-                    };
-                    fd.append("image", file);
-                    fd.append("csrftoken", csrftoken.value);
-                    xhr.send(fd);
-                }
-            </script>
+            <input type="file" id="uploadfiles" multiple="multiple" >
         </div>
     </div>
+{% endblock %}
+
+{% block extra_script %}
+    <script>
+        var uploadfiles = document.getElementById('uploadfiles');
+        var post_id = {% if post %}{{ post.pk }}{% else %}0{% endif %};
+
+
+        uploadfiles.addEventListener('change', function () {
+            var files = this.files;
+            for(var i=0; i<files.length; i++){
+                uploadFile(this.files[i], post_id); // call the function to upload the file
+            }
+        }, false);
+
+        var image_modal = new tingle.modal({
+            footer: true,
+            stickyFooter: false,
+            closeLabel: "Close",
+            cssClass: ['custom-class-1', 'custom-class-2'],
+        });
+
+        image_modal.setFooterContent('<p>Картинки такие картинки :))))</p>');
+
+        function showImageCode(img_id) {
+            var img_item = document.getElementById(img_id);
+            if (img_item) {
+                image_modal.setContent(
+                    '<p>Исходник: ' + img_item.getAttribute('data-source') + '</p>' +
+                    '<p>600: ' + img_item.getAttribute('data-600') + '</p>' +
+                    '<p>400: ' + img_item.getAttribute('data-400') + '</p>' +
+                    '<p>200: ' + img_item.getAttribute('data-200') + '</p>' +
+                    ''
+                );
+                image_modal.open();
+            }
+        }
+
+    </script>
 {% endblock %}

@@ -14,6 +14,7 @@
     <!--<![endif]-->
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "app/vendor/tingle/tingle.css" %}">
     <link rel="stylesheet" href="{% static "app/css/main.css" %}">
     {% block extrahead %}{% endblock %}
 </head>
@@ -125,5 +126,8 @@
         </div>
     </div>
     {% block extra_body %}{% endblock %}
+    <script src="{% static "app/js/main.js" %}" language="JavaScript"></script>
+    <script src="{% static "app/vendor/tingle/tingle.js" %}" language="JavaScript"></script>
+    {% block extra_script %}{% endblock %}
 </body>
 </html>{% endspaceless %}
