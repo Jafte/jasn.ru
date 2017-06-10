@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Коллективное сознательное{% endblock %} - JASN</title></title>
 
-    <link rel="stylesheet" href="{% static "app/css/pure-min.css" %}">
+    <link rel="stylesheet" href="{% static 'app/css/pure-min.css' %}">
     <!--[if lte IE 8]>
-        <link rel="stylesheet" href="{% static "app/css/grids-responsive-old-ie-min.css" %}">
+        <link rel="stylesheet" href="{% static 'app/css/grids-responsive-old-ie-min.css' %}">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="{% static "app/css/grids-responsive-min.css" %}">
+        <link rel="stylesheet" href="{% static 'app/css/grids-responsive-min.css' %}">
     <!--<![endif]-->
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic" rel="stylesheet">
-    <link rel="stylesheet" href="{% static "app/vendor/tingle/tingle.css" %}">
-    <link rel="stylesheet" href="{% static "app/css/main.css" %}">
+    <link rel="stylesheet" href="{% static 'app/vendor/tingle/tingle.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
     {% block extrahead %}{% endblock %}
 </head>
 <body>
@@ -30,7 +30,7 @@
                             {% if user.profile.photo %}
                                 <img src="{{ user.profile.photo.micro.url }}" alt="{% user_display user %}">
                             {% else %}
-                                <img src="{% static "app/img/user.svg" %}" alt="{% user_display user %}" width="20">
+                                <img src="{% static 'app/img/user.svg' %}" alt="{% user_display user %}" width="20">
                             {% endif %}
                         </span>
                         {% user_display user %}
@@ -71,7 +71,7 @@
             <div class="pure-g">
                 <div class="pure-u-1 pure-u-md-5-24 menu-item menu-logo">
                     <a href="/">
-                        <img class="header-logo" src="{% static "app/img/logo.svg" %}" width="110px">
+                        <img class="header-logo" src="{% static 'app/img/logo.svg' %}" width="110px">
                     </a>
                 </div>
                 <div class="pure-u-1 pure-u-md-3-24 menu-item">
@@ -119,15 +119,15 @@
                     <span class="contacts-text">по всем вопросам можно стучаться на <a href="mailto:adam@jasn.ru">adam@jasn.ru</a></span>
                 </div>
                 <div class="pure-u-1 pure-u-md-2-5 copyrights-block">
-                    <span class="copyrights-text">&copy; <b>2012 - {% now "Y" %}</b> Коллективное сознательное</span>
-                    <img class="footer-logo" src="{% static "app/img/logo.svg" %}" width="40px">
+                    <span class="copyrights-text">&copy; <b>2012 - {% now "Y' %}</b> Коллективное сознательное</span>
+                    <img class="footer-logo" src="{% static 'app/img/logo.svg' %}" width="40px">
                 </div>
             </div>
         </div>
     </div>
     {% block extra_body %}{% endblock %}
-    <script src="{% static "app/js/main.js" %}" language="JavaScript"></script>
-    <script src="{% static "app/vendor/tingle/tingle.js" %}" language="JavaScript"></script>
+    <script src="{% static 'app/js/main.js' %}" language="JavaScript"></script>
+    <script src="{% static 'app/vendor/tingle/tingle.js' %}" language="JavaScript"></script>
     {% block extra_script %}{% endblock %}
 </body>
 </html>{% endspaceless %}

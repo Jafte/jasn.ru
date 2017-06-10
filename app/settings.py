@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'django_cleanup',
     'crispy_forms',
-    'actstream',
+#    'actstream',
     'guardian',
 ]
 

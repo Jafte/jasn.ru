@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^', include('allauth.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'^user/', include('user_profile.urls')),
-    url(r'^activity/', include('actstream.urls')),
+    #url(r'^activity/', include('actstream.urls')),
 
     url(r'^$', IndexPageList.as_view(), name='index'),
 
