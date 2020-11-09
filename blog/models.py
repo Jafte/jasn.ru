@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
@@ -16,7 +15,6 @@ STATUS_CHOICES = (
     (2, _('Public')),
 )
 
-@python_2_unicode_compatible
 class Blog(models.Model):
     title = models.CharField(_('title'), max_length=100)
     slug = models.SlugField(_('slug'), unique=True, max_length=100, validators=[MinLengthValidator(4)])
@@ -27,7 +25,7 @@ class Blog(models.Model):
     modified = models.DateTimeField(_('modified'), auto_now=True)
     photo = ThumbnailerImageField(upload_to=upload_to, blank=True)
     background = ThumbnailerImageField(upload_to=upload_to, blank=True)
-    owner = models.ForeignKey(User, related_name='blogs')
+    owner = models.ForeignKey(User, related_name='blogs', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('blog')
@@ -59,11 +57,10 @@ def blog_changed(sender, **kwargs):
         assign_perm("write_post", user, blog)
 
 
-@python_2_unicode_compatible
 class Post(models.Model):
     title = models.CharField(_('title'), max_length=200)
-    author = models.ForeignKey(User)
-    blog = models.ForeignKey(Blog, related_name='posts')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, related_name='posts', on_delete=models.CASCADE)
     body = models.TextField(_('body'))
     body_html = models.TextField(_('body html'))
     preview = models.TextField(_('preview'), default='')
@@ -94,10 +91,9 @@ def post_changed(sender, **kwargs):
         assign_perm("change_post", user, post)
 
 
-@python_2_unicode_compatible
 class PostImage(models.Model):
-    post = models.ForeignKey(Post, related_name='images', blank=True, null=True)
-    owner = models.ForeignKey(User, related_name='images')
+    post = models.ForeignKey(Post, related_name='images', blank=True, null=True, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='images', on_delete=models.CASCADE)
     image = ThumbnailerImageField(upload_to=upload_to)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)

@@ -20,7 +20,7 @@ class Profile(models.Model):
         (2, _('Female')),
     )
 
-    user = models.OneToOneField(User, unique=True, verbose_name=_('user'), related_name='profile') 
+    user = models.OneToOneField(User, unique=True, verbose_name=_('user'), related_name='profile', on_delete=models.CASCADE)
     timezone = TimeZoneField(default='UTC')
     gender = models.PositiveSmallIntegerField(_('gender'), choices=GENDER_CHOICES, blank=True, null=True)
     birth_date = models.DateField(_('birth date'), blank=True, null=True)
